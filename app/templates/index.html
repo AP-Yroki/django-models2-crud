@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test world</title>
+</head>
+<body>
+    <form action="create/" method="post">
+        {% csrf_token %}
+        <p>
+            <label>Введите название модели телефона:</label><br>
+            <input type="text" placeholder="name" name="name">
+        </p>
+        <p>
+            <label>Введите Характеристики:</label><br>
+            <input type="text" placeholder="info" name="info">
+        </p>
+        <p>
+            <label>Введите Цену:</label><br>
+            <input type="number" placeholder="price" name="price">
+        </p>
+        <p>
+            <label>Введите Производителя:</label><br>
+            <input type="text" placeholder="author" name="author">
+        </p>
+        <input type="submit" value="Сохранить">
+    </form>
+
+    {% if phone.count > 0 %}
+    <h2>Список пользователей: </h2>
+    <table>
+        <thead><th>Id</th><th>Модель телефона</th><th>Характеристики</th><th>Цена</th><th>Производитель</th></thead>
+        {% for phone_current in phone %}
+        <tr>
+            <td>{{ phone_current.id }}</td>
+            <td>{{ phone_current.name }}</td>
+            <td>{{ phone_current.info }}</td>
+            <td>{{ phone_current.price }}</td>
+            <td>{{ phone_current.author }}</td>
+            <td><a href="edit/{{ phone.id }}">Изменить</a> | <a href="delete/{{ phone.id }}">Удалить</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>
